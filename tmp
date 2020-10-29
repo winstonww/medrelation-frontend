@@ -1,0 +1,94 @@
+<template>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <Todos :lool="ptodos"/>
+    <div :class="classObject">
+      <button @click="mtodos('lol')">submit</button>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import Todos from  './components/Todos.vue'
+export default {
+  name: 'App',
+  components: {
+    Todos
+  },
+  data: function() {
+    return {
+      ptodos: [
+        {
+          title: "todo one",
+          completed: false
+        },
+        {
+          title: "todo two",
+          completed: true
+        },
+        {
+          title: "todo three",
+          completed: false
+        },
+      ],
+      isActive: true,
+      hidden: {}
+    }
+  },
+  watch: {
+    // useful when you want to watch a specific variable 
+    // and perform expensive and async operation (api)
+  },
+  computed:  {
+    todos: function() {
+        // compute automatically watches any variables 
+        // used in this function (i.e. this.ptodos)
+        // key is a variable and result is cached 
+        let todos = Array.from(this.ptodos);
+        todos.push({
+          title: "todo four",
+          completed: false
+        });
+        return todos
+    },
+    classObject: function() {
+      console.log('hello');
+      console.log(this);
+      return {
+        active: this.isActive
+      }
+    }
+  },
+  methods: {
+    mtodos: function(hi) {
+
+        // will always run when re-render
+        // allow side effects tho, but will warn
+        // key is a callable
+        console.log(hi)
+        // let todos = Array.from(this.ptodos);
+        this.ptodos.push({
+          title: "todo five",
+          completed: false
+        });
+        return
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+.active {
+  background-color: black;
+}
+</style>
